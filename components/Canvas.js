@@ -22,59 +22,64 @@ export default function Canvas() {
 
   return (
     <>
-      <input
-        ref={ref}
-        value={""}
-        autoFocus
-        onKeyDown={(e) => {
-          switch (e.keyCode) {
-            case 40:
-              userRef.current.scrollIntoView();
-              long !== Zheight && setLong(long + 2);
-              break;
+      <div className="container">
+        <input
+          ref={ref}
+          value={""}
+          autoFocus
+          onKeyDown={(e) => {
+            switch (e.keyCode) {
+              case 40:
+                userRef.current.scrollIntoView();
+                long !== Zheight && setLong(long + 2);
+                break;
 
-            case 38:
-              userRef.current.scrollIntoView();
-              long !== 0 && setLong(long - 2);
-              break;
-            case 39:
-              userRef.current.scrollIntoView();
-              lat !== Zwidth && setLat(lat + 2);
-              break;
-            case 37:
-              userRef.current.scrollIntoView();
-              lat !== 0 && setLat(lat - 2);
-              break;
-            default:
-              return;
-          }
-        }}
-        onBlur={() => ref.current.focus()}
-      />
-      <div className="Canvas">
-        <div className="Space">
-          <div
-            ref={userRef}
-            className="userContainer"
-            style={{
-              transform: `translate(${lat}rem,${long}rem)`
-            }}
-          >
-            <div className="user"></div>
-          </div>
-          {rooms.map((room) => (
+              case 38:
+                userRef.current.scrollIntoView();
+                long !== 0 && setLong(long - 2);
+                break;
+              case 39:
+                userRef.current.scrollIntoView();
+                lat !== Zwidth && setLat(lat + 2);
+                break;
+              case 37:
+                userRef.current.scrollIntoView();
+                lat !== 0 && setLat(lat - 2);
+                break;
+              default:
+                return;
+            }
+          }}
+          onBlur={() => ref.current.focus()}
+        />
+        <div className="Canvas">
+          <div className="Space">
             <div
-              className="room"
+              ref={userRef}
+              className="userContainer"
               style={{
-                transform: `translate(${room.lat}rem,${room.long}rem)`
+                transform: `translate(${lat}rem,${long}rem)`
               }}
             >
-              {room.name}
+              <div className="user"></div>
             </div>
-          ))}
+            {rooms.map((room) => (
+              <div
+                className="room"
+                style={{
+                  transform: `translate(${room.lat}rem,${room.long}rem)`
+                }}
+              >
+                {room.name}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
       <style jsx>{`
+        container {
+          width: 100%;
+        }
         input {
           opacity: 0;
         }
@@ -82,7 +87,7 @@ export default function Canvas() {
           background: black;
           width: 25rem;
           height: 25rem;
-          margin: 2rem auto;
+          margin: 1rem auto;
           overflow: auto;
           position: relative;
         }
